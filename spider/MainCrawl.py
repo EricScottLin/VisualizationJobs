@@ -18,7 +18,8 @@ class crawl(object):
     def startBroswer(self):
         service = Service('./chromedriver')
         options = webdriver.ChromeOptions()
-        options.add_experimental_option("excludeSwitches", ['enable-automation'])
+        # options.add_experimental_option("excludeSwitches", ['enable-automation'])
+        options.add_experimental_option("debuggerAddress", "localhost:9222")
         return webdriver.Chrome(service=service, options=options)
 
     def init(self):
@@ -86,7 +87,7 @@ class crawl(object):
             salaries = job.find_element(By.XPATH,
                                         './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/span['
                                         '@class="salary"]').text
-            if salaries.find("K"):
+            if salaries.find("K") != -1:
                 salaries = salaries.split("·")
                 if len(salaries) == 1:
                     salary = list(map(lambda x:
@@ -105,8 +106,8 @@ class crawl(object):
                 salaryMonth = '12薪'
                 practice = 1
 
-            companyTags = job.find_elements(By.XPATH,
-                                            './div[contains(@class, "job-card-footer")]/div[@class, "info-desc"]').text
+            companyTags = job.find_element(By.XPATH,
+                                           './div[contains(@class, "job-card-footer")]/div[@class="info-desc"]').text
             if not companyTags:
                 companyTags = '无'
             else:
@@ -119,13 +120,14 @@ class crawl(object):
                                       '@class="info-public"]/em').text
 
             companyTitle = job.find_element(By.XPATH,
-                                            './/a[@class="job-card-right"]/div[@class, "company-info"]/h3/a').text
+                                            './/div[@class="job-card-right"]/div[@class="company-info"]/h3/a')\
+                .text
             companyAvatar = job.find_element(By.XPATH,
-                                             './/a[@class="job-card-right"]/div[@class, "company-logo"]/a/img').get_attribute(
+                                             './/div[@class="job-card-right"]/div[@class="company-logo"]/a/img').get_attribute(
                 'src')
-            companyInfos = job.find_element(By.XPATH,
-                                            './/a[@class="job-card-right"]/div[@class, "company-info"]/ul[@class, '
-                                            '"company-tag-list"]/li')
+            companyInfos = job.find_elements(By.XPATH,
+                                            './/div[@class="job-card-right"]/div[@class="company-info"]/ul['
+                                            '@class="company-tag-list"]/li')
             if len(companyInfos) == 3:
                 companyType = companyInfos[0].text
                 companyStatus = companyInfos[1].text
@@ -139,12 +141,13 @@ class crawl(object):
                 companyStatus = '未融资'
                 companyScale = companyInfos[1].text
                 if companyScale != '10000人以上':
-                    list(map(lambda x: int(x), companyInfos[2].text.replace('人', '').split('-')))
+                    list(map(lambda x: int(x), companyInfos[1].text.replace('人', '').split('-')))
                 else:
                     companyScale = [0, 10000]
             detailUrl = job.find_element(By.XPATH, './/a[@class="job-card-left"]').get_attribute('href')
             companyUrl = job.find_element(By.XPATH,
-                                            './/a[@class="job-card-right"]/div[@class, "company-info"]/h3/a').get_attribute('href')
+                                          './/div[@class="job-card-right"]/div[@class="company-info"]/h3/a').get_attribute(
+                'href')
             print(title, address, dist, type, education, workExperience, hrWork, hrName)
             print(wordTags, practice, salary, salaryMonth)
             print(companyTags, companyTitle, companyAvatar, companyType, companyStatus, companyScale)
