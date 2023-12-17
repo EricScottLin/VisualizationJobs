@@ -58,9 +58,11 @@ class crawl(object):
         for index, job in enumerate(job_list):
             print("正在爬取第%d条数据" % (index + 1))
             title = job.find_element(By.XPATH,
-                                     ".//a[@class='job-card-left']/div[contains(@class, 'job-title')]/span[@class='job-name']").text
+                                     './/a[@class="job-card-left"]/div[contains(@class, "job-title")]/span['
+                                     '@class="job-name"]').text
             addresses = job.find_element(By.XPATH,
-                                         ".//a[@class='job-card-left']/div[contains(@class, 'job-title')]/span[@class='job-area-wrapper']/span").text.split(
+                                         './/a[@class="job-card-left"]/div[contains(@class, "job-title")]/span['
+                                         '@class="job-area-wrapper"]/span').text.split(
                 '·')
             address = addresses[0]
             if len(addresses) != 1:
@@ -69,7 +71,8 @@ class crawl(object):
                 dist = ''
             type = self.type
             tag_list = job.find_elements(By.XPATH,
-                                         ".//a[@class='job-card-left']/div[contains(@class, 'job-info')]/ul[@class='tag-list']/li")
+                                         './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/ul['
+                                         '@class="tag-list"]/li')
             if len(tag_list) == 2:
                 education = tag_list[1].text
                 workExperience = tag_list[0].text
@@ -77,11 +80,12 @@ class crawl(object):
                 education = tag_list[2].text
                 workExperience = tag_list[1].text
             workTags = job.find_elements(By.XPATH,
-                                         "./div[contains(@class, 'job-card-footer')]/ul[@class='tag-list']/li")
-            wordTag = json.dumps(list(map(lambda x: x.text, workTags)))
+                                         './div[contains(@class, "job-card-footer")]/ul[@class="tag-list"]/li')
+            wordTags = json.dumps(list(map(lambda x: x.text, workTags)))
             practice = 0
             salaries = job.find_element(By.XPATH,
-                                        './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/span[@class="salary"]').text
+                                        './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/span['
+                                        '@class="salary"]').text
             if salaries.find("K"):
                 salaries = salaries.split("·")
                 if len(salaries) == 1:
@@ -101,22 +105,50 @@ class crawl(object):
                 salaryMonth = '12薪'
                 practice = 1
 
-            # companyTags =
+            companyTags = job.find_elements(By.XPATH,
+                                            './div[contains(@class, "job-card-footer")]/div[@class, "info-desc"]').text
+            if not companyTags:
+                companyTags = '无'
+            else:
+                companyTags = json.dumps(companyTags.split('，'))
             hrWork = job.find_element(By.XPATH,
-                                      './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/div[@class="info-public"]').text
+                                      './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/div['
+                                      '@class="info-public"]').text
             hrName = job.find_element(By.XPATH,
-                                      './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/div[@class="info-public"]/em').text
+                                      './/a[@class="job-card-left"]/div[contains(@class, "job-info")]/div['
+                                      '@class="info-public"]/em').text
 
             companyTitle = job.find_element(By.XPATH,
-                                      './/a[@class="job-card-right"]/div[@class, "company-info"]/div[@class="company-name"]').text
-            companyAvatar =
-            # companyType =
-            # companyStatus =
-            # companyScale =
-            # detailUrl =
-            # companyUrl =
+                                            './/a[@class="job-card-right"]/div[@class, "company-info"]/h3/a').text
+            companyAvatar = job.find_element(By.XPATH,
+                                             './/a[@class="job-card-right"]/div[@class, "company-logo"]/a/img').get_attribute(
+                'src')
+            companyInfos = job.find_element(By.XPATH,
+                                            './/a[@class="job-card-right"]/div[@class, "company-info"]/ul[@class, '
+                                            '"company-tag-list"]/li')
+            if len(companyInfos) == 3:
+                companyType = companyInfos[0].text
+                companyStatus = companyInfos[1].text
+                companyScale = companyInfos[2].text
+                if companyScale != '10000人以上':
+                    list(map(lambda x: int(x), companyInfos[2].text.replace('人', '').split('-')))
+                else:
+                    companyScale = [0, 10000]
+            else:
+                companyType = companyInfos[0].text
+                companyStatus = '未融资'
+                companyScale = companyInfos[1].text
+                if companyScale != '10000人以上':
+                    list(map(lambda x: int(x), companyInfos[2].text.replace('人', '').split('-')))
+                else:
+                    companyScale = [0, 10000]
+            detailUrl = job.find_element(By.XPATH, './/a[@class="job-card-left"]').get_attribute('href')
+            companyUrl = job.find_element(By.XPATH,
+                                            './/a[@class="job-card-right"]/div[@class, "company-info"]/h3/a').get_attribute('href')
             print(title, address, dist, type, education, workExperience, hrWork, hrName)
-            print(wordTag, practice, salary, salaryMonth)
+            print(wordTags, practice, salary, salaryMonth)
+            print(companyTags, companyTitle, companyAvatar, companyType, companyStatus, companyScale)
+            print(detailUrl, companyUrl)
 
             break
 
