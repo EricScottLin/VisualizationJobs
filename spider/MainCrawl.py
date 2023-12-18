@@ -1,12 +1,42 @@
 import csv
 import os
 import time
+import json
 
+import pandas as pd
+import django
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from jobVisualization.models import JobInfo
 
-import json
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VisualizationJobs.settings')
+django.setup()
+
+
+def startBrowser():
+    service = Service('./chromedriver')
+    options = webdriver.ChromeOptions()
+    # options.add_experimental_option("excludeSwitches", ['enable-automation'])
+    options.add_experimental_option("debuggerAddress", "localhost:9222")
+    return webdriver.Chrome(service=service, options=options)
+
+
+def save_to_csv(rowData):
+    with open('./temp.csv', 'a', newline='', encoding='utf-8') as wf:
+        writer = csv.writer(wf)
+        writer.writerow(rowData)
+
+
+def clean_data():
+    df = pd.read_csv('./temp.csv')
+    df.dropna(inplace=True)
+    df.drop_duplicates(inplace=True)
+    df['salaryMonth'] = df['salaryMonth'].map(lambda x: x.replace('薪', ''))
+    df['companyTags'] = df['companyTags'].apply(lambda x: x.encode('utf-8').decode('unicode_escape'))
+    df['workTag'] = df['workTag'].apply(lambda x: x.encode('utf-8').decode('unicode_escape'))
+    print("总数据量为%d" % df.shape[0])
+    return df.values
 
 
 class crawl(object):
@@ -15,17 +45,31 @@ class crawl(object):
         self.page = page  # 页码数
         self.url = "https://www.zhipin.com/web/geek/job?query=%s&city=100010000&page=%s"
 
-    def startBroswer(self):
-        service = Service('./chromedriver')
-        options = webdriver.ChromeOptions()
-        # options.add_experimental_option("excludeSwitches", ['enable-automation'])
-        options.add_experimental_option("debuggerAddress", "localhost:9222")
-        return webdriver.Chrome(service=service, options=options)
-
-    def save_to_csv(self, rowData):
-        with open('./temp.csv', 'a', newline='', encoding='utf-8') as wf:
-            writer = csv.writer(wf)
-            writer.writerow(rowData)
+    def save_to_mysql(self):
+        data = clean_data()
+        for job in data:
+            JobInfo.objects.create(
+                title=job[0],
+                address=job[1],
+                type=job[2],
+                education=job[3],
+                workExperienc=job[4],
+                workTags=job[5],
+                salary=job[6],
+                salaryMonth=job[7],
+                companyTags=job[8],
+                hrWork=job[9],
+                hrName=job[10],
+                practice=job[11],
+                companyTitle=job[12],
+                companyAvatar=job[13],
+                companyType=job[14],
+                companyStatus=job[15],
+                companyScale=job[16],
+                detailUrl=job[17],
+                companyUrl=job[18],
+                dist=job[19],
+            )
 
     def init(self):
         if not os.path.exists('./temp.csv'):
@@ -56,7 +100,7 @@ class crawl(object):
 
     def main(self, page):
         # if self.page > page: return
-        browser = self.startBroswer()
+        browser = startBrowser()
         print("正在爬取路径：" + self.url % (self.type, self.page))
         browser.get(self.url % (self.type, self.page))
         time.sleep(30)
@@ -169,20 +213,25 @@ class crawl(object):
                 jobData.append(practice)
                 jobData.append(companyTitle)
                 jobData.append(companyAvatar)
+                jobData.append(companyType)
                 jobData.append(companyStatus)
                 jobData.append(companyScale)
                 jobData.append(detailUrl)
                 jobData.append(companyUrl)
                 jobData.append(dist)
-                self.save_to_csv(jobData)
+                save_to_csv(jobData)
             except:
                 pass
 
-        self.page += 1
-        self.main(page)
+        if page != 31:
+            self.page += 1
+            self.main(page)
 
 
 if __name__ == '__main__':
-    crawlObj = crawl('java', 1)
+    crawlObj = crawl('Nodejs', 1)
     crawlObj.init()
-    crawlObj.main(10)
+    crawlObj.main(30)
+
+    # JobInfo.objects.all()
+    # crawlObj.save_to_mysql()
