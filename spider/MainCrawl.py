@@ -8,11 +8,18 @@ import django
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from jobVisualization.models import JobInfo
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VisualizationJobs.settings')
 django.setup()
 
+from jobVisualization.models import JobInfo
+
+jobs = ['软件', '图像', '自然语言处理', '人工智能', '学习', '前端', '后端', '数据', '算法', '测试', '网络安全', '运维', 'UI', '区块链', '网络', '全栈',
+            '硬件', 'Java', 'C++', 'PHP', 'C#', '.NET', 'Hadoop', 'Python', 'Perl', 'Ruby', 'Nodejs', 'Go', 'Javascript',
+            'Delphi', 'jsp', 'sql', '软件工程师', '网络工程师', '数据分析师', '系统管理员', 'Java工程师', '前端工程师', 'Python开发', '人工智能工程师',
+        '数据库管理员', '项目经理', '前端工程师', '后端工程师', '后端工程师', '算法工程师', '测试工程师', '运维工程师', 'DevOps工程师', '产品经理',
+        'UI/UX设计师', '信息安全分析师', '全栈开发', '软件架构师', '数据工程师', '云计算工程师', '人工智能研究员', '嵌入式软件工程师', 'Web工程师', '游戏开发',
+        '大数据工程师', '区块链工程师', '机器学习工程师', '物联网工程师', '信息技术经理', '网络安全工程师']
 
 def startBrowser():
     service = Service('./chromedriver')
@@ -39,64 +46,66 @@ def clean_data():
     return df.values
 
 
+def save_to_mysql():
+    data = clean_data()
+    for job in data:
+        JobInfo.objects.create(
+            title=job[0],
+            address=job[1],
+            type=job[2],
+            education=job[3],
+            workExperienc=job[4],
+            workTags=job[5],
+            salary=job[6],
+            salaryMonth=job[7],
+            companyTags=job[8],
+            hrWork=job[9],
+            hrName=job[10],
+            practice=job[11],
+            companyTitle=job[12],
+            companyAvatar=job[13],
+            companyType=job[14],
+            companyStatus=job[15],
+            companyScale=job[16],
+            detailUrl=job[17],
+            companyUrl=job[18],
+            dist=job[19],
+        )
+
+
+def init():
+    if not os.path.exists('./temp.csv'):
+        with open('./temp.csv', 'a', encoding='utf-8', newline='') as wf:
+            writer = csv.writer(wf)
+            writer.writerow([
+                'title',  # 岗位名字
+                'address',  # 地址
+                'type',  # 岗位
+                'education',  # 学历
+                'workExperience',  # 工作经验
+                'workTags',  # 工作标签
+                'salary',  # 薪资
+                'salaryMonth',  # 年底多薪
+                'companyTags',  # 公司福利
+                'hrWork',  # HR职位
+                'hrName',  # HR姓名
+                'practice',  # 实习生
+                'companyTitle',  # 公司名字
+                'companyAvatar',  # 公司头像
+                'companyType',  # 公司性质
+                'companyStatus',  # 公司状态
+                'companyScale',  # 规模
+                'detailUrl',  # 岗位详情页
+                'companyUrl',  # 公司详情页
+                'dist',  # 行政区
+            ])
+
+
 class crawl(object):
     def __init__(self, type, page):
         self.type = type  # 岗位关键字
         self.page = page  # 页码数
         self.url = "https://www.zhipin.com/web/geek/job?query=%s&city=100010000&page=%s"
-
-    def save_to_mysql(self):
-        data = clean_data()
-        for job in data:
-            JobInfo.objects.create(
-                title=job[0],
-                address=job[1],
-                type=job[2],
-                education=job[3],
-                workExperienc=job[4],
-                workTags=job[5],
-                salary=job[6],
-                salaryMonth=job[7],
-                companyTags=job[8],
-                hrWork=job[9],
-                hrName=job[10],
-                practice=job[11],
-                companyTitle=job[12],
-                companyAvatar=job[13],
-                companyType=job[14],
-                companyStatus=job[15],
-                companyScale=job[16],
-                detailUrl=job[17],
-                companyUrl=job[18],
-                dist=job[19],
-            )
-
-    def init(self):
-        if not os.path.exists('./temp.csv'):
-            with open('./temp.csv', 'a', encoding='utf-8', newline='') as wf:
-                writer = csv.writer(wf)
-                writer.writerow([
-                    'title',  # 岗位名字
-                    'address',  # 地址
-                    'type',  # 岗位
-                    'education',  # 学历
-                    'workExperience',  # 工作经验
-                    'workTags',  # 工作标签
-                    'salary',  # 薪资
-                    'salaryMonth',  # 年底多薪
-                    'companyTags',  # 公司福利
-                    'hrWork',  # HR职位
-                    'hrName',  # HR姓名
-                    'practice',  # 实习生
-                    'companyTitle',  # 公司名字
-                    'companyAvatar',  # 公司头像
-                    'companyType',  # 公司性质
-                    'companyStatus',  # 公司状态
-                    'companyScale',  # 规模
-                    'detailUrl',  # 岗位详情页
-                    'companyUrl',  # 公司详情页
-                    'dist',  # 行政区
-                ])
 
     def main(self, page):
         # if self.page > page: return
@@ -223,15 +232,16 @@ class crawl(object):
             except:
                 pass
 
-        if page != 31:
+        if self.page != 31:
             self.page += 1
             self.main(page)
 
 
 if __name__ == '__main__':
-    crawlObj = crawl('Nodejs', 1)
-    crawlObj.init()
-    crawlObj.main(30)
+    for j in jobs:
+        crawlObj = crawl(j, 1)
+        init()
+        crawlObj.main(30)
 
     # JobInfo.objects.all()
     # crawlObj.save_to_mysql()
