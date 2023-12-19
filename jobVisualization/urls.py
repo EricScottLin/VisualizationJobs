@@ -3,5 +3,4 @@ from jobVisualization import views
 
 urlpatterns = [
     path('login', views.login, name='login'),
-
 ]
