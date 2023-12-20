@@ -2,11 +2,10 @@ var left1 = echarts.init(document.getElementById("l1"),"dark");
 
 var left1_option;
 
-
 left1_option = {
     title: {
         text: '公司数和薪资',
-        subtext: '数据来自51job',
+        subtext: '数据来自BOSS直聘',
         left: 'center'
     },
     tooltip: {
@@ -61,8 +60,8 @@ left1_option = {
             type: 'category',
             boundaryGap: false,
             axisLine: {onZero: true},
-            // data: ['高中', '中专', '大专', '本科', '硕士', '博士'],
-            data: []
+            data: ['高中', '中专', '大专', '本科', '硕士', '博士'],
+            // data: []
         },
         {
             gridIndex: 1,
@@ -94,8 +93,8 @@ left1_option = {
             type: 'line',
             symbolSize: 8,
             hoverAnimation: false,
-            // data: [65, 42, 3394, 5493, 693, 68],
-            data: []
+            data: [65, 42, 3394, 5493, 693, 68],
+            // data: []
         },
         {
             name: '薪资',
@@ -104,8 +103,8 @@ left1_option = {
             yAxisIndex: 1,
             symbolSize: 8,
             hoverAnimation: false,
-            // data: [8.37, 8.6, 10.32, 16.7, 20.03, 28.59],
-            data: []
+            data: [8.37, 8.6, 10.32, 16.7, 20.03, 28.59],
+            // data: []
         }
     ]
 };

@@ -16,10 +16,12 @@ from jobVisualization.models import JobInfo
 
 # '软件', '图像', '自然语言处理', '人工智能', '学习', '前端', '后端', '数据', '算法', '测试', '网络安全', '运维', 'UI', '区块链', '网络', '全栈',
 #         '硬件', 'Java', 'C++', 'PHP', 'C#', '.NET', 'Hadoop', 'Python', 'Perl', 'Ruby', 'Nodejs', 'Go', 'Javascript',
-#         'Delphi', 'jsp', 'sql',
+#         'Delphi', 'jsp', 'sql', '软件工程师', '网络工程师', '数据分析师', '系统管理员', 'Java工程师', '前端工程师', 'Python开发',
+#         '人工智能工程师', '数据库管理员',
 
-jobs = ['UI/UX设计师', '信息安全分析师', '全栈开发', '软件架构师', '数据工程师', '云计算工程师', '人工智能研究员', '嵌入式软件工程师', 'Web工程师', '游戏开发',
-        '大数据工程师', '区块链工程师', '机器学习工程师', '物联网工程师', '信息技术经理', '网络安全工程师']
+jobs = ['项目经理', '算法工程师', '测试工程师', '运维工程师', 'DevOps工程师', '产品经理',
+        'UI/UX设计师', '信息安全分析师', '全栈开发', '软件架构师', '数据工程师', '云计算工程师', '人工智能研究员', '嵌入式软件工程师', 'Web工程师',
+        '大数据工程师', '区块链工程师', '机器学习工程师', '物联网工程师', '信息技术经理', '网络安全工程师', '游戏开发']
 
 
 def startBrowser():
@@ -42,7 +44,7 @@ def clean_data():
     df.drop_duplicates(inplace=True)
     df['salaryMonth'] = df['salaryMonth'].map(lambda x: x.replace('薪', ''))
     df['companyTags'] = df['companyTags'].apply(lambda x: x.encode('utf-8').decode('unicode_escape'))
-    df['workTag'] = df['workTag'].apply(lambda x: x.encode('utf-8').decode('unicode_escape'))
+    df['workTags'] = df['workTags'].apply(lambda x: x.encode('utf-8').decode('unicode_escape'))
     print("总数据量为%d" % df.shape[0])
     return df.values
 
@@ -55,7 +57,7 @@ def save_to_mysql():
             address=job[1],
             type=job[2],
             education=job[3],
-            workExperienc=job[4],
+            workExperience=job[4],
             workTags=job[5],
             salary=job[6],
             salaryMonth=job[7],
@@ -113,7 +115,7 @@ class crawl(object):
         browser = startBrowser()
         print("正在爬取路径：" + self.url % (self.type, self.page))
         browser.get(self.url % (self.type, self.page))
-        time.sleep(30)
+        time.sleep(15)
         job_list = browser.find_elements(By.XPATH, '//ul[@class="job-list-box"]/li')
         for index, job in enumerate(job_list):
             try:
@@ -245,5 +247,5 @@ if __name__ == '__main__':
         init()
         crawlObj.main(30)
 
-        JobInfo.objects.all()
-        crawlObj.save_to_mysql()
+    JobInfo.objects.all()
+    save_to_mysql()

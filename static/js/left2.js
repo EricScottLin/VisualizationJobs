@@ -8,7 +8,7 @@ var left2_option;
 left2_option = {
     title: {
         text: '人数和经验',
-        subtext: '数据来自51job',
+        subtext: '数据来自BOSS直聘',
         left: 'center'
     },
     tooltip: {
@@ -35,8 +35,8 @@ left2_option = {
     xAxis: [
         {
             type: 'category',
-            // data: ['高中', '中专', '大专', '本科', '硕士', '博士'],
-            data: [],
+            data: ['高中', '中专', '大专', '本科', '硕士', '博士'],
+            // data: [],
             axisPointer: {
                 type: 'shadow'
             }
@@ -68,15 +68,15 @@ left2_option = {
         {
             name: '人数',
             type: 'bar',
-            // data: [217, 89, 8980, 11367, 1279, 115]
-            data: []
+            data: [217, 89, 8980, 11367, 1279, 115]
+            // data: []
         },
         {
             name: '平均经验',
             type: 'line',
             yAxisIndex: 1,
-            // data: [0.43, 0.71, 1.14, 2.87, 2.24, 1.78]
-            data: []
+            data: [0.43, 0.71, 1.14, 2.87, 2.24, 1.78]
+            // data: []
         }
     ]
 };

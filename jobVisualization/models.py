@@ -29,28 +29,3 @@ class JobInfo(models.Model):
     class Meta:
         db_table = 'jobInfo'
 
-
-class User(models.Model):
-    id = models.AutoField('id', primary_key=True)
-    username = models.CharField('用户名', max_length=255, default='')
-    password = models.CharField('密码', max_length=255, default='')
-    education = models.CharField('学历', max_length=255, default='')
-    workExperience = models.CharField('工作经验', max_length=255, default='')
-    address = models.CharField('意向城市', max_length=255, default='')
-    work = models.CharField('意向岗位', max_length=255, default='')
-    avatar = models.FileField('头像', upload_to="avatar", default="avatar/default.png")
-    createTime = models.DateField('创建时间', auto_now_add=True)
-
-    class Meta:
-        db_table = 'user'
-
-
-class History(models.Model):
-    id = models.AutoField('id', primary_key=True)
-    job = models.ForeignKey(JobInfo, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    count = models.IntegerField("点击次数", default=1)
-
-    class Meta:
-        db_table = 'history'
-

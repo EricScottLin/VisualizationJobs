@@ -46,11 +46,11 @@ right1_option = {
                 show: false
             },
             data: [
-//                 {value: 7036, name: '民营公司'},
-//                 {value: 928, name: '上市公司'},
-//                 {value: 629, name: '国企'},
-//                 {value: 464, name: '合资'},
-//                 {value: 308, name: '外资（非欧美）'}
+                {value: 7036, name: '民营公司'},
+                {value: 928, name: '上市公司'},
+                {value: 629, name: '国企'},
+                {value: 464, name: '合资'},
+                {value: 308, name: '外资（非欧美）'}
             ]
         }
     ]

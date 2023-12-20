@@ -19,5 +19,21 @@ def home(request):
             'hour': hour,
             'min': min,
             'sec': sec,
+        },
+        'words':{
+            
         }
     })
+
+
+def time(request):
+    year, mon, date, weekday, hour, min, sec = getHomeData.getCurrentTime()
+    return render(request, {'dateInfo': {
+            'year': year,
+            'mon': mon,
+            'date': date,
+            'weekday': weekday,
+            'hour': hour,
+            'min': min,
+            'sec': sec,
+        }})

@@ -1,54 +1,89 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
     <meta charset="utf-8">
-        <title>全国招聘岗位就业可视化系统</title>
-        <script src="../static/js/jquery.js"></script>
-        <script src="../static/js/echart3.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-        <script src="../static/js/china.js"></script>
-        <script src="../static/js/echarts-wordcloud.js"></script>
-        <link href="../static/css/main.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div id="title">全国招聘岗位就业可视化系统</div>
-        <div id="time">{{ dateInfo.year }}年 {{ dateInfo.month }}月 {{ dateInfo.day }}日 {{ dateInfo.weekday }} {{ dateInfo.hour }}时 {{ dateInfo.min }}分 {{ dateInfo.sec }}秒</div>
-        <div id="l1"></div>
-        <div id="l2"></div>
-        <div id="c1">
-            <div class="num">
-                <h1>数据</h1>
-            </div>
-            <div class="num">
-                <h1>薪资</h1>
-            </div>
-            <div class="num">
-                <h1>省份</h1>
-            </div>
-            <div class="num">
-                <h1>学历</h1>
-            </div>
-            <div class="txt">
-                <h2>数据量(条)</h2>
-            </div>
-            <div class="txt">
-                <h2>薪资(千/月)</h2>
-            </div>
-            <div class="txt">
-                <h2>热门省份</h2>
-            </div>
-            <div class="txt">
-                <h2>最多学历</h2>
-            </div>
+    <title>全国招聘岗位就业可视化系统</title>
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/echart3.js"></script>
+    <script src="/static/js/echarts.min.js"></script>
+    <script src="/static/js/china.js"></script>
+    <script src="/static/js/swiper-bundle.min.js"></script>
+    <link href="/static/css/main.css" rel="stylesheet"/>
+    <link href="/static/css/swiper.min.css" rel="stylesheet"/>
+</head>
+<style>
+</style>
+<body>
+<div id="title">全国招聘岗位就业可视化系统</div>
+<div id="time">{{ dateInfo.year }}年 {{ dateInfo.mon }} {{ dateInfo.date }}日 {{ dateInfo.weekday }} {{ dateInfo.hour }}:{{ dateInfo.min }}:{{ dateInfo.sec }}</div>
+<div id="l1"></div>
+<div id="l2"></div>
+<div id="c1">
+    <div class="num">
+        <h1>数据</h1>
+    </div>
+    <div class="num">
+        <h1>薪资</h1>
+    </div>
+    <div class="num">
+        <h1>省份</h1>
+    </div>
+    <div class="num">
+        <h1>学历</h1>
+    </div>
+    <div class="txt">
+        <h2>数据量(条)</h2>
+    </div>
+    <div class="txt">
+        <h2>薪资(千/月)</h2>
+    </div>
+    <div class="txt">
+        <h2>热门省份</h2>
+    </div>
+    <div class="txt">
+        <h2>最多学历</h2>
+    </div>
+</div>
+<div id="c2"></div>
+<div id="r1"></div>
+<div class="swiper" id="r2">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <h2>招聘城市词云图</h2>
+            <img src="/static/address_wordcloud.png" alt="招聘城市词云图">
         </div>
-        <div id="c2"></div>
-        <div id="r1"></div>
-        <div id="r2"></div>
-        <script src="../static/js/center.js"></script>
-        <script src="../static/js/left1.js"></script>
-        <script src="../static/js/left2.js"></script>
-        <script src="../static/js/right1.js"></script>
-        <script src="../static/js/right2.js"></script>
-        <script src="../static/js/controller.js"></script>
-    </body>
+        <div class="swiper-slide">
+            <h2>技术要求词云图</h2>
+            <img src="/static/workTags_wordcloud.png" alt="技术要求词云图">
+        </div>
+        <div class="swiper-slide">
+            <h2>学历要求词云图</h2>
+            <img src="/static/education_wordcloud.png" alt="学历要求词云图">
+        </div>
+        <div class="swiper-slide">
+            <h2>热门岗位词云图</h2>
+            <img src="/static/title_wordcloud.png" alt="热门岗位词云图">
+        </div>
+        <div class="swiper-slide">
+            <h2>公司福利词云图</h2>
+            <img src="/static/companyTags_wordcloud.png" alt="公司福利词云图">
+        </div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+
+<script src="/static/js/center.js"></script>
+<script src="/static/js/left1.js"></script>
+<script src="/static/js/left2.js"></script>
+<script src="/static/js/right1.js"></script>
+<script src="/static/js/right2.js"></script>
+</body>
 </html>

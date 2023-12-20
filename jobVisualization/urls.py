@@ -3,4 +3,7 @@ from jobVisualization import views
 
 urlpatterns = [
     path('login', views.login, name='login'),
+    path('home', views.home, name='home'),
+    path('time', views.time),
+
 ]
