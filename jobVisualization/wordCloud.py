@@ -61,5 +61,5 @@ def get_img(field, targetImageSrc, resImageSrc):
 # get_img('title', '../static/jobs.png', '../static/title_wordcloud.png')
 # get_img('address', '../static/map.png', '../static/address_wordcloud.png')
 # get_img('education', '../static/edu.jpg', '../static/education_wordcloud.png')
-# get_img('workTags', '../static/tech.png', '../static/workTags_wordcloud.png')
-get_img('companyTags', '../static/welfare.png', '../static/companyTags_wordcloud.png')
+get_img('workTags', '../static/tech.png', '../static/workTags_wordcloud.png')
+# get_img('companyTags', '../static/welfare.png', '../static/companyTags_wordcloud.png')

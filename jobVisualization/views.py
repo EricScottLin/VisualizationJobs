@@ -10,6 +10,7 @@ def login(request):
 
 def home(request):
     year, mon, date, weekday, hour, min, sec = getHomeData.getCurrentTime()
+    data = getHomeData.getMapData('all')
     return render(request, 'main.html', {
         'dateInfo': {
             'year': year,
@@ -20,8 +21,8 @@ def home(request):
             'min': min,
             'sec': sec,
         },
-        'words':{
-            
+        'mapData': {
+            'data': data,
         }
     })
 

@@ -94,7 +94,7 @@ body {
     background: #100c2a;
 }
 
-#r2, #r2 img{
+#r2{
     position: absolute;
     width: 30%;
     height: 50%;
@@ -103,7 +103,3 @@ body {
     background: #100c2a;
 }
 
-.swiper {
-    color: white;
-    text-align: center;
-}

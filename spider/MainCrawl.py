@@ -17,11 +17,12 @@ from jobVisualization.models import JobInfo
 # '软件', '图像', '自然语言处理', '人工智能', '学习', '前端', '后端', '数据', '算法', '测试', '网络安全', '运维', 'UI', '区块链', '网络', '全栈',
 #         '硬件', 'Java', 'C++', 'PHP', 'C#', '.NET', 'Hadoop', 'Python', 'Perl', 'Ruby', 'Nodejs', 'Go', 'Javascript',
 #         'Delphi', 'jsp', 'sql', '软件工程师', '网络工程师', '数据分析师', '系统管理员', 'Java工程师', '前端工程师', 'Python开发',
-#         '人工智能工程师', '数据库管理员',
+#         '人工智能工程师', '数据库管理员', '项目经理', '算法工程师', '测试工程师', '运维工程师', 'DevOps工程师', '产品经理',
+#         'UI/UX设计师', '信息安全分析师', '全栈开发', '软件架构师', '数据工程师', '云计算工程师', '人工智能研究员', '嵌入式软件工程师', 'Web工程师',
+#         '大数据工程师', '区块链工程师', '机器学习工程师', '物联网工程师', '信息技术经理', '网络安全工程师', '游戏开发'
 
-jobs = ['项目经理', '算法工程师', '测试工程师', '运维工程师', 'DevOps工程师', '产品经理',
-        'UI/UX设计师', '信息安全分析师', '全栈开发', '软件架构师', '数据工程师', '云计算工程师', '人工智能研究员', '嵌入式软件工程师', 'Web工程师',
-        '大数据工程师', '区块链工程师', '机器学习工程师', '物联网工程师', '信息技术经理', '网络安全工程师', '游戏开发']
+jobs = ['前端', '后端', 'Python', 'Java', 'JavaScript', '人工智能', '数据分析师', '全栈', '软件测试', '机器学习', '数据库', '大数据', '云计算',
+        '区块链工程师', '网络安全工程师', '物联网工程师', '嵌入式软件工程师', 'vue', '游戏开发', '运维', 'Hadoop', 'Nodejs']
 
 
 def startBrowser():
@@ -33,13 +34,13 @@ def startBrowser():
 
 
 def save_to_csv(rowData):
-    with open('./temp.csv', 'a', newline='', encoding='utf-8') as wf:
+    with open('temp0.csv', 'a', newline='', encoding='utf-8') as wf:
         writer = csv.writer(wf)
         writer.writerow(rowData)
 
 
 def clean_data():
-    df = pd.read_csv('./temp.csv')
+    df = pd.read_csv('temp0.csv')
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
     df['salaryMonth'] = df['salaryMonth'].map(lambda x: x.replace('薪', ''))
@@ -77,8 +78,8 @@ def save_to_mysql():
 
 
 def init():
-    if not os.path.exists('./temp.csv'):
-        with open('./temp.csv', 'a', encoding='utf-8', newline='') as wf:
+    if not os.path.exists('temp0.csv'):
+        with open('temp0.csv', 'a', encoding='utf-8', newline='') as wf:
             writer = csv.writer(wf)
             writer.writerow([
                 'title',  # 岗位名字
@@ -235,7 +236,7 @@ class crawl(object):
             except:
                 pass
 
-        if self.page != 30:
+        if self.page != 1:
             self.page += 1
             self.main(page)
 
@@ -246,6 +247,5 @@ if __name__ == '__main__':
         crawlObj = crawl(j, 1)
         init()
         crawlObj.main(30)
-
     JobInfo.objects.all()
     save_to_mysql()
