@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Neon Admin Panel">
+    <meta name="author" content="">
+
+    <title>学历分布</title>
+
+    <link rel="stylesheet" href="/static/css/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/static/css/entypo.css">
+    <link rel="stylesheet" href="/static/css/css.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/neon-core.css">
+    <link rel="stylesheet" href="/static/css/neon-theme.css">
+    <link rel="stylesheet" href="/static/css/neon-forms.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+
+    <script src="assets/js/ie8-responsive-file-warning.js"></script>
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div class="page-container" style="padding-left: 0px">
+    <div class="main-content" style="background-color: #100c2a">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info" data-collapsed="0" style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-title" style="color: #fff">选择学历</div>
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/myApp/educational" method="GET">
+                            <div class="col-md-4">
+                                <select name="educational" class="form-control">
+                                    {% if defaultEducation == '不限' %}
+                                        <option selected value="不限">不限</option>
+                                    {% else %}
+                                        <option value="不限">不限</option>
+                                    {% endif %}
+                                    {% for i in educations %}
+                                        {% if i == defaultEducation %}
+                                            <option selected value="{{ i }}">{{ i }}</option>
+                                        {% else %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-info">提交</button>
+                                <a type="button" style="margin-left: 25px" class="btn btn-danger"
+                                   href="/myApp/main">关闭</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info panel-shadow" data-collapsed="0"
+                     style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="text-align: center">
+                        {% if hasEmpty %}
+                            <i class="entypo-cloud" style="font-size: 250px"></i>
+                            <h1>
+                                数据飘走啦~~~（暂无数据！）
+                            </h1>
+                        {% else %}
+                            <div id="main" style="width: 100%;height: 480px"></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-info panel-shadow" data-collapsed="0"
+                     style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="text-align: center">
+                        <div id="mainTwo" style="width: 100%;height: 480px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<link rel="stylesheet" href="/static/css/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="/static/css/rickshaw.min.css">
+<link rel="stylesheet" href="/static/css/datatables.responsive.css">
+<link rel="stylesheet" href="/static/css/select2-bootstrap.css">
+<link rel="stylesheet" href="/static/css/select2.css">
+
+
+<script src="/static/js/main-gsap.js"></script>
+<script src="/static/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/joinable.js"></script>
+<script src="/static/js/resizeable.js"></script>
+<script src="/static/js/neon-api.js"></script>
+<script src="/static/js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/static/js/jquery-jvectormap-europe-merc-en.js"></script>
+<script src="/static/js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="/static/js/jquery.sparkline.min.js"></script>
+<script src="/static/js/d3.v3.js"></script>
+<script src="/static/js/rickshaw.min.js"></script>
+<script src="/static/js/neon-chat.js"></script>
+<script src="/static/js/neon-custom.js"></script>
+<script src="/static/js/neon-demo.js"></script>
+<script src="/static/js/echarts.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/TableTools.min.js"></script>
+<script src="/static/js/dataTables.bootstrap.js"></script>
+<script src="/static/js/jquery.dataTables.columnFilter.js"></script>
+<script src="/static/js/lodash.min.js"></script>
+<script src="/static/js/datatables.responsive.js"></script>
+<script src="/static/js/fileinput.js"></script>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    const colors = ['#5470C6', '#91CC75', '#EE6666'];
+    option = {
+        color: colors,
+        title: {
+            text: '工作年限薪涨幅度情况',
+            x: 'center',
+            y: 'bottom',
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
+        grid: {
+            right: '20%'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true},
+                magicType: {show: true, type: ['line', 'bar']},
+            }
+        },
+        legend: {
+            data: ['薪资平均值', '人数'],
+            textStyle: {color: 'fff'},
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                // prettier-ignore
+                data: {{ workExperiences | safe }},
+                axisLabel: {
+                    show: true,
+                    textStyle: {color: '#fff'}
+                },
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '薪资平均值',
+                position: 'right',
+                alignTicks: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} ￥'
+                },
+                splitLine: {show: false}
+            },
+            {
+                type: 'value',
+                name: '人数',
+                position: 'left',
+                alignTicks: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: colors[1]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} 人'
+                }
+            }
+        ],
+        series: [
+            {
+                name: '薪资平均值',
+                type: 'bar',
+                data: {{ charDataColumnOne }},
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
+                    ]
+                },
+                markLine: {
+                    data: [{type: 'average', name: 'AVG'}]
+                },
+            },
+            {
+                name: '人数',
+                type: 'bar',
+                yAxisIndex: 1,
+                data: {{ charDataColumnTwo }},
+            },
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+<script>
+    var chartDom = document.getElementById('mainTwo');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        color: ['#5470C6'],
+        title: {
+            text: '学历人数柱状图',
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true},
+                magicType: {show: true, type: ['line', 'bar']},
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            textStyle: {color: 'fff'},
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01],
+            axisLabel: {
+                show: true,
+                textStyle: {color: '#fff'}
+            },
+        },
+        yAxis: {
+            type: 'category',
+            data: {{ barDataRow | safe }},
+            axisLabel: {
+                show: true,
+                textStyle: {color: '#fff'}
+            },
+        },
+        series: [
+            {
+                name: '人数',
+                type: 'bar',
+                data: {{ barDataColumn }},
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
+                    ]
+                },
+                markLine: {
+                    data: [{type: 'average', name: 'AVG'}]
+                },
+                itemStyle: {
+                    normal: {
+                        color: (params) => {
+                            var colorList = [
+                                '#c23531',
+                                '#2f4554',
+                                '#61a0a8',
+                                '#d48265',
+                                '#91c7ae',
+                                '#749f83',
+                                '#ca8622'
+                            ];
+                            return colorList[Math.floor(Math.random() * colorList.length)];
+                        }
+                    }
+                }
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+</body>
+</html>

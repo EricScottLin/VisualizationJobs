@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'VisualizationJobs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jobinfo',
+        'NAME': 'bossinfo',
         'USER': 'root',
         'PASSWORD': '20021117',
         'HOST': 'localhost',

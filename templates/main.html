@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>全国招聘岗位就业可视化系统</title>
+    <title>职场图谱: 数据化探索就业机会</title>
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/echart3.js"></script>
     <script src="/static/js/echarts.min.js"></script>
@@ -16,69 +16,107 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        right: 0%;
-        top: 0%;
+        right: 0;
+        top: 10px;
     }
 
     .swiper {
         color: white;
         text-align: center;
     }
+
+    .num {
+        color: #fff;
+    }
+
+    .txt {
+        color: #f9db0c;
+    }
+
+    .swiper-slide h2, a {
+        z-index: 995;
+        color: #fff;
+        text-decoration: none;
+        font-size: large;
+    }
 </style>
 <body>
-<div id="title">全国招聘岗位就业可视化系统</div>
+<div id="title" style="top: 5%;left: 31%;font-weight: bold;">职场图谱: 数据化探索就业机会</div>
 <div id="time">{{ dateInfo.year }}年 {{ dateInfo.mon }} {{ dateInfo.date }}日 {{ dateInfo.weekday }} {{ dateInfo.hour }}:{{ dateInfo.min }}:{{ dateInfo.sec }}</div>
-<div id="l1"></div>
-<div id="l2"></div>
-<div id="c1">
+<div class="left">
+    <div style="position: relative">
+        <a href="/myApp/educational"
+           style="position:absolute;padding-left: 85px;color: #fff;text-decoration: none;font-weight: bold;margin-top: 30px;font-size: larger;z-index: 999">学历、人数与薪资关系图<span
+                style="font-weight: normal">(查看详情)</span></a>
+    </div>
+    <div id="l1" style="height: 45%;margin-top: 45px;z-index: 996;"></div>
+    <div style="position: relative">
+        <a href="/myApp/company"
+           style="position:absolute;padding-left: 125px;color: #fff;text-decoration: none;font-weight: bold;margin-top: 440px;font-size: larger;z-index: 999">公司规模统计图<span
+                style="font-weight: normal">(查看详情)</span></a>
+    </div>
+    <div id="l2" style="height: 45%;margin-top: 25px"></div>
+</div>
+<div id="c1" style="margin-left: 11px;margin-top: 60px;">
     <div class="num">
-        <h1>数据</h1>
+        <h2>数据总量</h2>
     </div>
     <div class="num">
-        <h1>薪资</h1>
+        <h2>最高薪资</h2>
     </div>
     <div class="num">
-        <h1>省份</h1>
-    </div>
-    <div class="num">
-        <h1>学历</h1>
-    </div>
-    <div class="txt">
-        <h2>数据量(条)</h2>
-    </div>
-    <div class="txt">
-        <h2>薪资(千/月)</h2>
-    </div>
-    <div class="txt">
         <h2>热门省份</h2>
     </div>
-    <div class="txt">
+    <div class="num">
         <h2>最多学历</h2>
     </div>
+    <div class="txt">
+        <h2>{{ dataCount }}(条)</h2>
+    </div>
+    <div class="txt">
+        <h2>{{ maxSalary }}(千/月)</h2>
+    </div>
+    <div class="txt">
+        <h2>广东</h2>
+    </div>
+    <div class="txt">
+        <h2>本科</h2>
+    </div>
 </div>
-<div id="c2"></div>
+<a id="c2" href="/myApp/salary" style="margin-left: 22px; "></a>
+<div style="position: relative">
+    <div style="position:absolute;padding-left: 1225px;color: #fff;text-decoration: none;font-weight: bold;padding-top: 82px;z-index: 995;font-size: larger">
+        公司融资情况
+    </div>
+</div>
 <div id="r1"></div>
 <div class="swiper" id="r2">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <h2>招聘城市词云图</h2>
-            <img src="/static/address_wordcloud.png" alt="招聘城市词云图">
+            <a href="/myApp/company">
+                <h2>招聘城市词云图<span style="font-weight: normal">(查看详情)</span></h2>
+                <img src="/static/address_wordcloud.png" alt="招聘城市词云图"></a>
         </div>
         <div class="swiper-slide">
-            <h2>技术要求词云图</h2>
-            <img src="/static/workTags_wordcloud.png" alt="技术要求词云图">
+            <a href="/myApp/companyStatus">
+                <h2>技术要求词云图<span style="font-weight: normal">(查看详情)</span></h2>
+                <img src="/static/workTags_wordcloud.png" alt="技术要求词云图"></a>
         </div>
         <div class="swiper-slide">
-            <h2>学历要求词云图</h2>
-            <img src="/static/education_wordcloud.png" alt="学历要求词云图">
+            <a href="/myApp/educational">
+                <h2>学历要求词云图<span style="font-weight: normal">(查看详情)</span></h2>
+                <img src="/static/education_wordcloud.png" alt="学历要求词云图"></a>
         </div>
         <div class="swiper-slide">
             <h2>热门岗位词云图</h2>
-            <img src="/static/title_wordcloud.png" alt="热门岗位词云图">
+            <img style="position: absolute;width: 140%;height: 125%;right: -75px;top: -66px;"
+                 src="/static/title_wordcloud.png" alt="热门岗位词云图">
         </div>
         <div class="swiper-slide">
-            <h2>公司福利词云图</h2>
-            <img src="/static/companyTags_wordcloud.png" alt="公司福利词云图">
+            <a href="/myApp/salary">
+                <h2>公司福利词云图<span style="font-weight: normal">(查看详情)</span></h2>
+                <img style="width: 130%;height: 110%;right: -55px;top: -25px;"
+                     src="/static/companyTags_wordcloud.png" alt="公司福利词云图"></a>
         </div>
     </div>
     <!-- 如果需要分页器 -->
@@ -172,9 +210,273 @@
     //使用制定的配置项和数据显示图表
     center.setOption(optionMap);
 </script>
-<script src="/static/js/left1.js"></script>
-<script src="/static/js/left2.js"></script>
-<script src="/static/js/right1.js"></script>
+<script>
+    var chartDom = document.getElementById('l1');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    const colors = ['#5470C6', '#91CC75', '#EE6666'];
+    option = {
+        color: colors,
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
+        grid: {
+            right: '20%'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true},
+                magicType: {show: true, type: ['line', 'bar']},
+            }
+        },
+        legend: {
+            data: ['薪资平均值', '人数'],
+            textStyle: {color: 'fff'},
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                // prettier-ignore
+                data: {{ educationList | safe }},
+                axisLabel: {
+                    show: true,
+                    textStyle: {color: '#fff'}
+                },
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '薪资平均值',
+                position: 'right',
+                alignTicks: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} ￥'
+                },
+                splitLine: {show: false}
+            },
+            {
+                type: 'value',
+                name: '人数',
+                position: 'left',
+                alignTicks: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: colors[1]
+                    }
+                },
+                {#axisLabel: {#}
+                {#    formatter: '{value} 人'#}
+                {##}
+            }
+        ],
+        series: [
+            {
+                name: '薪资平均值',
+                type: 'bar',
+                data: {{ educationalSalary }},
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
+                    ]
+                },
+                markLine: {
+                    data: [{type: 'average', name: 'AVG'}]
+                },
+            },
+            {
+                name: '人数',
+                type: 'bar',
+                yAxisIndex: 1,
+                data: {{ educationPeople }},
+            },
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+<script>
+    var chartDom = document.getElementById('l2');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                lineStyle: {
+                    width: 3,
+                    color: '#019688',
+                },
+            },
+        },
+        legend: {
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        grid: {
+            left: '4%',
+            right: '3%',
+            bottom: '3%',
+            containLabel: true,
+        },
+        color: ['#019688', '#119AC2'],
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: {{ companyPeople | safe }},
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        width: 1,
+                        type: 'solid',
+                        color: 'rgba(226, 226, 226, 0.5)',
+                    },
+                },
+                axisTick: { // 轴刻度线
+                    show: false,
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {color: '#fff'}
+                },
+            },
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '公司个数',
+                {#max: 800,#}
+                axisTick: {
+                    show: false,
+                },
+// 刻度文字颜色
+                axisLabel: {
+                    show: true,
+                    textStyle: {color: '#fff'}
+                },
+// y轴刻度设置
+                axisLine: {
+                    lineStyle: {
+                        width: 2,
+                        color: '#019688',
+                    },
+                },
+// y轴分隔线设置
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(226, 226, 226, 0.5)',
+                    },
+                },
+// y轴分隔区域设置
+                splitLine: {
+                    show: true,
+                    areaStyle: {
+                        color: ['rgba(250, 250, 250, 0.3)', 'rgba(226, 226, 226, 0.3)'],
+                    },
+                },
+            },
+        ],
+        series: [
+            {
+                name: '公司数',
+                type: 'line',
+                data: {{ lineData }},
+                smooth: true,
+                symbolSize: 6,
+                areaStyle: {},
+                itemStyle: {
+                    borderWidth: 2,
+                },
+            }
+        ],
+    };
+    option && myChart.setOption(option)
+</script>
+<script>
+    var chartDom = document.getElementById('r1');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            textStyle: {
+                color: '#fff',
+            },
+            orient: 'vertical',
+            right: 0,
+            top: '15%',
+        },
+        series: [
+            {
+                name: '公司融资情况',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['45%', '48%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: 40,
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: {{ companyStatusData | safe }}
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+<script src="/static/js/center.js"></script>
+{#<script src="/static/js/left1.js"></script>#}
+{#<script src="/static/js/left2.js"></script>#}
+{#<script src="/static/js/right1.js"></script>#}
 <script src="/static/js/right2.js"></script>
 </body>
 </html>
