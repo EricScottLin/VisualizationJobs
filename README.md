@@ -30,7 +30,7 @@
   DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.mysql',
-          'NAME': 'jobinfo',	# 数据库
+          'NAME': 'bossinfo',	# 数据库
           'USER': 'root',	# 用户名
           'PASSWORD': '123456',	# 密码
           'HOST': 'localhost',	# IP地址
@@ -46,7 +46,7 @@
   con = connect(host="localhost",	# IP地址
                 user="root",	# 用户名
                 password="123456",	# 密码
-                database="jobinfo",	# 数据库
+                database="bossinfo",	# 数据库
                 port=3306,	# 端口号
                 charset="utf8mb4")	# 数据库字符集
   ```
@@ -72,7 +72,7 @@
 - [ ] 6. 打开服务器查看页面
 
   ```http
-  localhost:8000/myApp/main/
+  localhost:8000/jobVisualization/main/
   ```
 
   

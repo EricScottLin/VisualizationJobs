@@ -17,10 +17,10 @@ def getCompanyBar(type):
         jobs = JobInfo.objects.filter(type=type)
     natureData = {}
     for i in jobs:
-        if natureData.get(i.companyNature,-1) == -1:
-            natureData[i.companyNature] = 1
+        if natureData.get(i.companyType,-1) == -1:
+            natureData[i.companyType] = 1
         else:
-            natureData[i.companyNature] += 1
+            natureData[i.companyType] += 1
     natureList = list(sorted(natureData.items(), key=lambda x:x[1], reverse=True))
     rowData = []
     columnData = []
@@ -48,7 +48,7 @@ def getCompanyPie(type):
         })
     return result[:30]
 
-def getCompanyScale(type):
+def getCompanyPeople(type):
     if type == 'all':
         jobs = JobInfo.objects.all()
     else:
@@ -75,7 +75,7 @@ def getCompanyScale(type):
             data[4] += 1
         else:
             data[5] += 1
-    return companyScale, data
+    return companyPeople, data
 
 
 

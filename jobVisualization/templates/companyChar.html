@@ -44,7 +44,7 @@
                             {% if type == 'all' %}
                                 <a type="button" class="btn btn-info" style="background-color: #100c2a; color: #f1e663">全部</a>
                             {% else %}
-                                <a href="/myApp/company?type=all" type="button" class="btn btn-info"
+                                <a href="/jobVisualization/company?type=all" type="button" class="btn btn-info"
                                    style="background-color: #100c2a">全部</a>
                             {% endif %}
                             {% for i in typeList %}
@@ -52,11 +52,11 @@
                                     <a href="#" type="button" class="btn btn-info"
                                        style="background-color: #100c2a; color: #f1e663">{{ i }}</a>
                                 {% else %}
-                                    <a href="/myApp/company?type={{ i }}" type="button"
+                                    <a href="/jobVisualization/company?type={{ i }}" type="button"
                                        class="btn btn-info" style="background-color: #100c2a">{{ i }}</a>
                                 {% endif %}
                             {% endfor %}
-                            <a type="button" style="margin-left: 1108px" class="btn btn-danger" href="/myApp/main">关闭</a>
+                            <a type="button" style="margin-left: 1108px" class="btn btn-danger" href="/jobVisualization/main">关闭</a>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,6 @@
 </head>
 <style>
     #r2 img {
-        position: absolute;
         width: 100%;
         height: 100%;
         right: 0;
@@ -44,15 +43,15 @@
 <div id="title" style="top: 5%;left: 31%;font-weight: bold;">职场图谱: 数据化探索就业机会</div>
 <div id="time">{{ dateInfo.year }}年 {{ dateInfo.mon }} {{ dateInfo.date }}日 {{ dateInfo.weekday }} {{ dateInfo.hour }}:{{ dateInfo.min }}:{{ dateInfo.sec }}</div>
 <div class="left">
-    <div style="position: relative">
-        <a href="/myApp/educational"
-           style="position:absolute;padding-left: 85px;color: #fff;text-decoration: none;font-weight: bold;margin-top: 30px;font-size: larger;z-index: 999">学历、人数与薪资关系图<span
+    <div style="position: relative;margin-top: 10px;z-index: 999;text-align: center;width: 30%">
+        <a href="/jobVisualization/educational"
+           style="padding-left: 40px;color: #fff;text-decoration: none;font-weight: bold;font-size: larger;z-index: 999">学历、人数与薪资关系图<span
                 style="font-weight: normal">(查看详情)</span></a>
     </div>
     <div id="l1" style="height: 45%;margin-top: 45px;z-index: 996;"></div>
-    <div style="position: relative">
-        <a href="/myApp/company"
-           style="position:absolute;padding-left: 125px;color: #fff;text-decoration: none;font-weight: bold;margin-top: 440px;font-size: larger;z-index: 999">公司规模统计图<span
+    <div style="position: relative;margin-top: 25%;z-index: 999;text-align: center;width: 30%">
+        <a href="/jobVisualization/company"
+           style="padding-left: 70px;color: #fff;text-decoration: none;font-weight: bold;font-size: larger;z-index: 999">公司规模统计图<span
                 style="font-weight: normal">(查看详情)</span></a>
     </div>
     <div id="l2" style="height: 45%;margin-top: 25px"></div>
@@ -60,7 +59,7 @@
 <div id="c1" style="margin-left: 11px;margin-top: 60px;">
     <div class="num">
         <h2>数据总量</h2>
-    </div>
+    </div>a
     <div class="num">
         <h2>最高薪资</h2>
     </div>
@@ -83,37 +82,38 @@
         <h2>本科</h2>
     </div>
 </div>
-<a id="c2" href="/myApp/salary" style="margin-left: 22px; "></a>
-<div style="position: relative">
-    <div style="position:absolute;padding-left: 1225px;color: #fff;text-decoration: none;font-weight: bold;padding-top: 82px;z-index: 995;font-size: larger">
+<a id="c2" href="/jobVisualization/salary" style="margin-left: 22px; "></a>
+<div style="position: absolute; top: 10px; right: 20px;z-index: 995; text-align: center; width: 30%">
+    <div style="color: #fff;text-decoration: none;font-weight: bold;padding-top: 40px;;z-index: 995;font-size: larger">
         公司融资情况
     </div>
 </div>
-<div id="r1"></div>
+<div id="r1">
+</div>
 <div class="swiper" id="r2">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <a href="/myApp/company">
+            <a href="/jobVisualization/company">
                 <h2>招聘城市词云图<span style="font-weight: normal">(查看详情)</span></h2>
                 <img src="/static/address_wordcloud.png" alt="招聘城市词云图"></a>
         </div>
         <div class="swiper-slide">
-            <a href="/myApp/companyStatus">
+            <a href="/jobVisualization/companyStatus">
                 <h2>技术要求词云图<span style="font-weight: normal">(查看详情)</span></h2>
                 <img src="/static/workTags_wordcloud.png" alt="技术要求词云图"></a>
         </div>
         <div class="swiper-slide">
-            <a href="/myApp/educational">
+            <a href="/jobVisualization/educational">
                 <h2>学历要求词云图<span style="font-weight: normal">(查看详情)</span></h2>
                 <img src="/static/education_wordcloud.png" alt="学历要求词云图"></a>
         </div>
         <div class="swiper-slide">
             <h2>热门岗位词云图</h2>
-            <img style="position: absolute;width: 140%;height: 125%;right: -75px;top: -66px;"
+            <img style="width: 140%;height: 125%;right: -75px;top: -66px;"
                  src="/static/title_wordcloud.png" alt="热门岗位词云图">
         </div>
         <div class="swiper-slide">
-            <a href="/myApp/salary">
+            <a href="/jobVisualization/salary">
                 <h2>公司福利词云图<span style="font-weight: normal">(查看详情)</span></h2>
                 <img style="width: 130%;height: 110%;right: -55px;top: -25px;"
                      src="/static/companyTags_wordcloud.png" alt="公司福利词云图"></a>

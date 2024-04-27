@@ -29,7 +29,7 @@ def getExpirenceData(educational):
     for job in jobs:
         for k, v in workExperiences.items():
             if job.workExperience == k:
-                if job.pratice == 0:
+                if job.practice == 0:
                     workExperiences[k].append(json.loads(job.salary)[1])
                     workPeople[k] += 1
     for k, v in workExperiences.items():
@@ -48,9 +48,9 @@ def getPeopleData():
     jobs = getAllJobs()
     educationData = {}
     for i in jobs:
-        if educationData.get(i.educational, -1) == -1:
-            educationData[i.educational] = 1
+        if educationData.get(i.education, -1) == -1:
+            educationData[i.education] = 1
         else:
-            educationData[i.educational] += 1
+            educationData[i.education] += 1
     return list(educationData.keys()), list(educationData.values())
 

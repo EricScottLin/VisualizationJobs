@@ -18,7 +18,7 @@ def getTechnologyData(type):
         jobs = JobInfo.objects.filter(type=type)
     workTagData = {}
     for job in jobs:
-        workTag = json.loads(job.workTag)
+        workTag = json.loads(job.workTags)
         for w in workTag:
             if not w: break
             if workTagData.get(w, -1) == -1:
