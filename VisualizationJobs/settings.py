@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bossinfo',
         'USER': 'root',
-        'PASSWORD': '20021117',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306'
     }
@@ -129,6 +129,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static')
     ,)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'jobVisualization', 'static')
 
 MEDIA_URL = "media/"
 

@@ -1,7 +1,7 @@
 asgiref==3.5.2
 async-generator==1.10
 attrs==22.1.0
-backports.zoneinfo==0.2.1
+#backports.zoneinfo==0.2.1
 certifi==2022.6.15
 cffi==1.15.1
 cryptography==37.0.4
