@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Neon Admin Panel">
+    <meta name="author" content="">
+
+    <title>薪资情况</title>
+
+    <link rel="stylesheet" href="/static/css/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/static/css/entypo.css">
+    <link rel="stylesheet" href="/static/css/css.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/neon-core.css">
+    <link rel="stylesheet" href="/static/css/neon-theme.css">
+    <link rel="stylesheet" href="/static/css/neon-forms.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+
+    <script src="assets/js/ie8-responsive-file-warning.js"></script>
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div class="page-container" style="padding-left: 0px">
+    <div class="main-content" style="background-color: #100c2a">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info" data-collapsed="0" style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-title" style="color: #fff;">选择岗位类型</div>
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-group">
+                            {% if type == 'all' %}
+                                <a type="button" class="btn btn-info" style="background-color: #100c2a; color: #f1e663">全部</a>
+                            {% else %}
+                                <a href="/jobVisualization/company?type=all" type="button" class="btn btn-info"
+                                   style="background-color: #100c2a">全部</a>
+                            {% endif %}
+                            {% for i in typeList %}
+                                {% if i == type %}
+                                    <a href="#" type="button" class="btn btn-info"
+                                       style="background-color: #100c2a; color: #f1e663">{{ i }}</a>
+                                {% else %}
+                                    <a href="/jobVisualization/company?type={{ i }}" type="button"
+                                       class="btn btn-info" style="background-color: #100c2a">{{ i }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            <a type="button" style="margin-left: 1108px" class="btn btn-danger" href="/jobVisualization/main">关闭</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info" data-collapsed="0" style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="main" style="width: 100%;height: 480px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-info" data-collapsed="0" style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="mainTwo" style="width: 100%;height: 480px"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info" data-collapsed="0" style="background-color: #100c2a;border: none">
+                    <div class="panel-heading" style="background-color: #100c2a">
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="mainThree" style="width: 100%;height: 480px"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/static/css/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="/static/css/rickshaw.min.css">
+<link rel="stylesheet" href="/static/css/datatables.responsive.css">
+<link rel="stylesheet" href="/static/css/select2-bootstrap.css">
+<link rel="stylesheet" href="/static/css/select2.css">
+
+
+<script src="/static/js/main-gsap.js"></script>
+<script src="/static/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/joinable.js"></script>
+<script src="/static/js/resizeable.js"></script>
+<script src="/static/js/neon-api.js"></script>
+<script src="/static/js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/static/js/jquery-jvectormap-europe-merc-en.js"></script>
+<script src="/static/js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="/static/js/jquery.sparkline.min.js"></script>
+<script src="/static/js/d3.v3.js"></script>
+<script src="/static/js/rickshaw.min.js"></script>
+<script src="/static/js/neon-chat.js"></script>
+<script src="/static/js/neon-custom.js"></script>
+<script src="/static/js/neon-demo.js"></script>
+<script src="/static/js/echarts.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/TableTools.min.js"></script>
+<script src="/static/js/dataTables.bootstrap.js"></script>
+<script src="/static/js/jquery.dataTables.columnFilter.js"></script>
+<script src="/static/js/lodash.min.js"></script>
+<script src="/static/js/datatables.responsive.js"></script>
+<script src="/static/js/fileinput.js"></script>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        title: {
+            text: '所选岗位类型在各种行业个数柱状图',
+            x: 'center',
+            y: 'bottom',
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                detaView: {show: true, readOnly: true},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        color: ['#707f9b'],
+        legend: {
+            data: ['行业个数'], // 所选岗位类型在各种行业所需数量
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        xAxis: {
+            type: 'category',
+            data: {{ rowBarData | safe }},
+            axisLabel: {
+                show: true,
+                textStyle: {color: '#fff'}
+            },
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                show: true,
+                textStyle: {color: '#fff'}
+            },
+        },
+        series: [
+            {
+                name: '行业个数',
+                data: {{ columnBarData }},
+                type: 'bar',
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
+                    ]
+                },
+                markLine: {
+                    data: [{type: 'average', name: 'AVG'}]
+                },
+                itemStyle: {
+                    normal: {
+                        color: function (params) {
+                            var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622'];
+                            return colorList[Math.floor(Math.random() * colorList.length)]
+                        }
+                    }
+                }
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+<script>
+    var chartDom = document.getElementById('mainTwo');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        title: {
+            text: '公司地址饼图',
+            padding: [20, 0, 0, 390],
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                detaView: {show: true, readOnly: true},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            top: '5%',
+            x: 'left',
+            y: 'top',
+            orient: 'vertical',
+            padding: [-20, 0, 0, 0],
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        series: [
+            {
+                name: '公司地址数量',
+                type: 'pie',
+                center: ['65%', '50%'],
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: 32,
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: {{ pieData | safe }}
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+<script>
+    var chartDom = document.getElementById('mainThree');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                lineStyle: {
+                    width: 3,
+                    color: '#019688',
+                },
+            },
+        },
+        legend: {
+            textStyle: {
+                color: '#fff',
+            },
+        },
+        grid: {
+            left: '4%',
+            right: '3%',
+            bottom: '3%',
+            containLabel: true,
+        },
+        color: ['#019688', '#119AC2'],
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: {{ companyPeople | safe }},
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        width: 1,
+                        type: 'solid',
+                        color: 'rgba(226, 226, 226, 0.5)',
+                    },
+                },
+                axisTick: {  // 轴刻度线
+                    show: false,
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {color: '#fff'}
+                },
+            },
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '公司人数',
+                max: 800,
+                axisTick: {
+                    show: false,
+                },
+                // 刻度文字颜色
+                axisLabel: {
+                    show: true,
+                    textStyle: {color: '#fff'}
+                },
+                // y轴刻度设置
+                axisLine: {
+                    lineStyle: {
+                        width: 2,
+                        color: '#019688',
+                    },
+                },
+                // y轴分隔线设置
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(226, 226, 226, 0.5)',
+                    },
+                },
+                // y轴分隔区域设置
+                splitLine: {
+                    show: true,
+                    areaStyle: {
+                        color: ['rgba(250, 250, 250, 0.3)', 'rgba(226, 226, 226, 0.3)'],
+                    },
+                },
+            },
+        ],
+        series: [
+            {
+                name: '公司人数',
+                type: 'line',
+                data: {{ lineData }},
+                smooth: true,
+                symbolSize: 6,
+                areaStyle: {},
+                itemStyle: {
+                    borderWidth: 2,
+                },
+            }
+        ],
+    };
+    option && myChart.setOption(option)
+</script>
+</body>
+</html>
